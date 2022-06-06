@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "256615511290",
+    "project_id": "pokemon-c1fa3",
+    "storage_bucket": "pokemon-c1fa3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256615511290:android:9a9acba1c1c1535a274543",
+        "android_client_info": {
+          "package_name": "com.pokemonapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256615511290-ticq00b1auc3mdsr31kqufpucjdso4h1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBvFChkIgww5PyLx2Mm6d0Eb5BY8obaUwM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256615511290-ticq00b1auc3mdsr31kqufpucjdso4h1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
