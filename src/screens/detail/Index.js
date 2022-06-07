@@ -6,6 +6,7 @@ import DetailCard from '../../component/DetailCard';
 import styles from './styles';
 import SpeciesCard from '../../component/SpeciesCard';
 import AbilitiesCard from '../../component/AbilitiesCard';
+import Button from '../../component/Button';
 
 const Index = ({navigation, route}) => {
   const [photo, setPhoto] = useState('');
@@ -83,6 +84,17 @@ const Index = ({navigation, route}) => {
       />
       <SpeciesCard desc={desc} weight={weight} height={height} />
       <AbilitiesCard abilities1={abilities1} abilities2={abilities2} />
+      <Button
+        marginTop={20}
+        top={0}
+        width={240}
+        left={50}
+        height={40}
+        borderRadius={10}
+        backgroundColor="white"
+        text={'Catch!'}
+        onPress={() => navigation.navigate('Bag')}
+      />
     </ScrollView>
   );
 };

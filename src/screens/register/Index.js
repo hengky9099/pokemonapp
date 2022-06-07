@@ -55,6 +55,8 @@ const Index = ({navigation}) => {
               top={70}
               left={215}
               height={40}
+              borderRadius={14}
+              marginTop={0}
               text="Next"
               onPress={handleSubmit}
             />

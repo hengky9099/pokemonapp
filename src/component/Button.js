@@ -3,17 +3,28 @@ import React from 'react';
 import {moderateScale} from 'react-native-size-matters';
 import {COLORS} from '../helpers/colors';
 
-const Button = ({onPress, text, backgroundColor, height, width, top, left}) => {
+const Button = ({
+  onPress,
+  text,
+  backgroundColor,
+  height,
+  width,
+  top,
+  left,
+  borderRadius,
+  marginTop,
+}) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
+        marginTop: moderateScale(marginTop),
         backgroundColor: backgroundColor,
         width: moderateScale(width),
         top: moderateScale(top),
         left: moderateScale(left),
         height: moderateScale(height),
-        borderRadius: moderateScale(14),
+        borderRadius: moderateScale(borderRadius),
         alignItems: 'center',
         justifyContent: 'center',
       }}>
