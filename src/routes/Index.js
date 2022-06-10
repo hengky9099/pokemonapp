@@ -5,29 +5,15 @@ import Login from '../screens/login/Index';
 import Register from '../screens/register/Index';
 import Dashboard from '../screens/dashboard/Index';
 import Detail from '../screens/detail/Index';
-import {COLORS} from '../helpers/colors';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import Bag from '../screens/bag/Index';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
-
-export const MyDrawer = () => {
-  return (
-    <Drawer.Navigator
-      screenOptions={{
-        drawerStyle: {
-          backgroundColor: COLORS.red,
-          width: 300,
-        },
-      }}>
-      <Drawer.Screen name="Test" />
-    </Drawer.Navigator>
-  );
-};
+const Tab = createBottomTabNavigator();
 
 const Index = () => {
   return (
-    <Stack.Navigator initialRouteName="Dashboard">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Login"
         component={Login}
@@ -42,10 +28,7 @@ const Index = () => {
         name="Dashboard"
         component={Dashboard}
         options={{
-          title: "Hengky's Pokedex",
-          headerTitleStyle: {
-            fontWeight: 'normal',
-          },
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -55,7 +38,23 @@ const Index = () => {
           headerShown: false,
         }}
       />
+      <Stack.Screen
+        name="Bag"
+        component={Bag}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen name="Tabs" component={Tabs} />
     </Stack.Navigator>
+  );
+};
+
+const Tabs = () => {
+  return (
+    <Tab.Navigator>
+      <Tab.Screen name="Dashboard" />
+    </Tab.Navigator>
   );
 };
 
