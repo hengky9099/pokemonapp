@@ -13,7 +13,7 @@ const Tab = createBottomTabNavigator();
 
 const Index = () => {
   return (
-    <Stack.Navigator initialRouteName="Dashboard">
+    <Stack.Navigator initialRouteName="Login">
       <Stack.Screen
         name="Login"
         component={Login}
@@ -28,10 +28,7 @@ const Index = () => {
         name="Dashboard"
         component={Dashboard}
         options={{
-          title: "Hengky's Pokedex",
-          headerTitleStyle: {
-            fontWeight: 'normal',
-          },
+          headerShown: false,
         }}
       />
       <Stack.Screen
@@ -48,11 +45,7 @@ const Index = () => {
           headerShown: false,
         }}
       />
-      <Stack.Screen
-        name="Tabs"
-        component={Tabs}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="Tabs" component={Tabs} />
     </Stack.Navigator>
   );
 };

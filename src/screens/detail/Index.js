@@ -1,12 +1,13 @@
-import {ScrollView, View} from 'react-native';
+import {ScrollView, Alert} from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {baseUrl} from '../../helpers/api';
+import {baseUrl, myDB} from '../../helpers/api';
 import axios from 'axios';
 import DetailCard from '../../component/DetailCard';
 import styles from './styles';
 import SpeciesCard from '../../component/SpeciesCard';
 import AbilitiesCard from '../../component/AbilitiesCard';
 import Button from '../../component/Button';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Index = ({navigation, route}) => {
   const [photo, setPhoto] = useState('');
@@ -20,6 +21,7 @@ const Index = ({navigation, route}) => {
   const [weight, setWeight] = useState('');
   const [abilities1, setAbilities1] = useState('');
   const [abilities2, setAbilities2] = useState('');
+  const {_user} = useSelector(state => state.user);
 
   useEffect(() => {
     getDataFromDashboard();
@@ -72,6 +74,21 @@ const Index = ({navigation, route}) => {
     }
   };
 
+  const catchPokemon = async payload => {
+    const randomCatch = Math.ceil(Math.random() * 100);
+    console.log(randomCatch);
+    if (randomCatch > 70) {
+      myDB.ref(`bag/${_user}/`).push().set({
+        name: name,
+      });
+      console.log(await myDB.ref(`bag/${_user}/`).once('value'));
+      Alert.alert(`${name} Catched and stored to your bag!`);
+      navigation.navigate('Bag');
+    } else {
+      Alert.alert(`${name} has Released from the Pokeball!`);
+    }
+  };
+
   return (
     <ScrollView style={[styles.container, {backgroundColor: color}]}>
       <DetailCard
@@ -93,7 +110,7 @@ const Index = ({navigation, route}) => {
         borderRadius={10}
         backgroundColor="white"
         text={'Catch!'}
-        onPress={() => navigation.navigate('Bag')}
+        onPress={catchPokemon}
       />
     </ScrollView>
   );

@@ -1,4 +1,4 @@
-import {TouchableOpacity, Text, View} from 'react-native';
+import {TouchableOpacity, Text, View, Alert} from 'react-native';
 import React, {useState} from 'react';
 import Input from '../../component/Input';
 import {COLORS} from '../../helpers/colors';
@@ -7,14 +7,33 @@ import Button from '../../component/Button';
 import auth from '@react-native-firebase/auth';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {myDB} from '../../helpers/api';
+import {setDataUser} from './redux/action';
+import {useDispatch} from 'react-redux';
 
 const Index = ({navigation}) => {
-  const emailSignIn = values =>
-    auth()
-      .createUserWithEmailAndPassword(values.email, values.password)
-      .then(() => {
-        navigation.navigate('Dashboard');
-      });
+  const dispatch = useDispatch();
+
+  const emailSignIn = async values => {
+    try {
+      const res = await auth().createUserWithEmailAndPassword(
+        values.email,
+        values.password,
+      );
+      const payload = {
+        email: values.email,
+        password: values.password,
+        _id: res.user.uid,
+        bag: [],
+      };
+      await myDB.ref(`users/${res.user.uid}`).set(payload);
+      console.log(res.user.uid);
+      dispatch(setDataUser(res.user.uid));
+      navigation.navigate('Dashboard');
+    } catch (error) {
+      Alert.alert(error);
+    }
+  };
 
   const signUpSchema = Yup.object().shape({
     email: Yup.string()
