@@ -1,5 +1,5 @@
 import {ScrollView, Alert} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {baseUrl, myDB} from '../../helpers/api';
 import axios from 'axios';
 import DetailCard from '../../component/DetailCard';
@@ -22,6 +22,7 @@ const Index = ({navigation, route}) => {
   const [abilities1, setAbilities1] = useState('');
   const [abilities2, setAbilities2] = useState('');
   const {_user} = useSelector(state => state.user);
+  const [pokemonBag, SetPokemonBag] = useState({name: []});
 
   useEffect(() => {
     getDataFromDashboard();
@@ -37,6 +38,7 @@ const Index = ({navigation, route}) => {
       setPhoto(results.data.sprites.front_default);
       setName(results.data.name);
       setNumber(results.data.id);
+      SetPokemonBag(results.data);
       setHeight(results.data.height);
       setWeight(results.data.weight);
       setAbilities1(results.data.abilities[0].ability.name);
@@ -74,19 +76,22 @@ const Index = ({navigation, route}) => {
     }
   };
 
-  const catchPokemon = async payload => {
-    const randomCatch = Math.ceil(Math.random() * 100);
-    console.log(randomCatch);
-    if (randomCatch > 70) {
-      myDB.ref(`bag/${_user}/`).push().set({
-        name: name,
-      });
-      console.log(await myDB.ref(`bag/${_user}/`).once('value'));
-      Alert.alert(`${name} Catched and stored to your bag!`);
-      navigation.navigate('Bag');
-    } else {
-      Alert.alert(`${name} has Released from the Pokeball!`);
-    }
+  const catchPokemon = async () => {
+    console.log(pokemonBag);
+    await myDB.ref(`users/${_user._id}`).update({
+      bag: [...pokemonBag],
+    });
+    // const randomCatch = Math.ceil(Math.random() * 100);
+    // console.log(randomCatch);
+    // if (randomCatch > 70) {
+    //   await myDB.ref(`users/${_user}`).update({
+    //     bag: [..._user.bag, pokemonBag],
+    //   });
+    //   Alert.alert(`${name} Catched and stored to your bag!`);
+    //   navigation.navigate('Bag');
+    // } else {
+    //   Alert.alert(`${name} has Released from the Pokeball!`);
+    // }
   };
 
   return (

@@ -7,6 +7,11 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     height: moderateScale(1500),
   },
+  square: {
+    width: moderateScale(100),
+    height: moderateScale(100),
+    backgroundColor: COLORS.red,
+  },
 });
 
 export default styles;

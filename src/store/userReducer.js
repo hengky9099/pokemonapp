@@ -1,7 +1,7 @@
 import {USER_DATA} from '../screens/register/redux/action';
 
 const initialState = {
-  _user: '',
+  _user: {},
 };
 
 const UserReducer = (state = initialState, action) => {

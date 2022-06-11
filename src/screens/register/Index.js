@@ -24,11 +24,10 @@ const Index = ({navigation}) => {
         email: values.email,
         password: values.password,
         _id: res.user.uid,
-        bag: [],
+        bag: ['pokemon'],
       };
       await myDB.ref(`users/${res.user.uid}`).set(payload);
-      console.log(res.user.uid);
-      dispatch(setDataUser(res.user.uid));
+      dispatch(setDataUser(payload));
       navigation.navigate('Dashboard');
     } catch (error) {
       Alert.alert(error);
